@@ -36,8 +36,8 @@ OpenPaaS Portal은 PaaS-TA 사용자를 위한 웹 애플리케이션입니다. 
 ### OpenPaaS Portal 배포
 1. 소스 코드 내려 받기
    ```sh
-   $ git clone
-   $ cd openpaas
+   $ git clone https://github.com/PaaS-TA-Incubator/OpenPaaS-Portal.git
+   $ cd openpaas-portal
    ```
 
 2. manifest.yml 작성
