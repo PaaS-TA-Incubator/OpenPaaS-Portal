@@ -1,0 +1,41 @@
+<script src="@{js}/domains.js"></script>
+
+<script type="text/templage" id="domainListItem">
+<tr>
+	<td>{domainName}</td>
+	<td><button class="Button Default paas-btn__typea" act-type="delete">DELETE</button></td>
+</tr>
+</script>
+
+<div class="container-wrap">
+	<!-- sub title -->
+	<h3 class="sub-title">Domains</h3>
+	<!--// sub title-->
+	<!-- Apps list section-->
+	<section class="Margin-top-20">
+		<div class="Panel">
+			<div class="Panel-content">
+				<div class="apps-list__header Text-right">
+					<input class="Textinput Width-20" id="newDomainText">
+					<button class="Button paas-btn__typea" data-disabled="true" id="addDomainBtn">ADD</button>
+					<button class="Button Default paas-btn__typea" data-disabled="true" id="cnclAddDomainBtn">CANCEL</button>
+				</div>
+				<table class="Table paas-tbl__typeb">
+		            <colgroup>
+		                <col>
+		                <col style="width: 120px; right: 50">
+		            </colgroup>
+		            <thead>
+		                <tr>
+		                    <th>Domain</th>
+		                    <th></th>
+		                </tr>
+		            </thead>
+		            <tbody id="domainTbody">
+		            </tbody>
+		    	</table>
+			</div>
+		</div>
+	</section>
+	<!-- //Apps list section-->
+</div>

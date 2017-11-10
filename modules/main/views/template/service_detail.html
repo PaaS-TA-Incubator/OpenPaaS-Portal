@@ -1,0 +1,159 @@
+<script src="@{js}/service_detail.js"></script>
+<script src="@{js}/organization/app_navi.js"></script>
+<script src="@{js}/organization/app_common.js"></script>
+
+<script type="text/template" id="bindAppListTemplate">
+<li class="Link">
+	<a class="move-appDetail">
+		<span><img src="@{images}/{imgName}.png" class="Thumbnail"></span>
+		<span class="binding-name">{BindAppName}</span>
+	</a>
+	<a class="more-detail">Unbind</a>
+</li>
+</script>
+<script type="text/template" id="plansInfoTemplate">
+<tr>
+	<td>
+		<label class="ImageRadio af-radio-text">
+			<input class="Radio" name="plansRadioBtn" value="{planName}" data-type="radio" data-classinit="true" type="radio" data-converted="true">
+		</label>
+	</td>
+	<td>{planName}<br>${costs} / Month</td>
+	<td colspan='2' class="Text-left">
+		{bullets}
+	</td>
+	<!-- <td><button class="Button paas-btn__typec short">SELECT</button></td> -->
+</tr>
+</script>
+
+<script type="text/template"  id="credentialsTemplate">
+<tr>
+<td colspan="4">
+<div>
+	<!-- <input class="Textinput credential-input" placeholder="key" id="serviceInstanceNameKey" name="key">
+	<input class="Textinput credential-input" placeholder="value" id="serviceInstanceNameValue" name="value">
+		<button class="paas-btn__plus">생성하기</button> -->
+</div>
+</td>
+</tr>
+</script>
+
+
+<div class="container-wrap">
+	<!--history title-->
+	<div class="history-list" id="pageNavi">
+	</div>
+	<!-- //history title -->
+	<!-- services item -->
+	<section>
+		<div class="Panel services-item__wrap">
+			<div class="Panel-content">
+				<div class="dash-app__header">
+					<div class="dash-app__title">
+						<span class="history-tag">Service</span>
+						<span id="serviceName"></span>
+					</div>
+				</div>
+				<div class="dash-content__wrap">
+					<div class="paas-app" id="apps-pop">
+			    		<img src="@{images}/sample-img.png" class="paas-app__ico">
+						<div class="paas-app__txt" id="serviceLabel">
+						</div>
+			    	</div>
+				</div>
+			</div>
+		</div>
+		<a class="cloud-config__btn" href="javascript:;" id="dialog-rename-service"><img src="@{images}/btn-config.png" alt="설정"></a>
+	</section>
+	<!-- //services item -->
+	<!-- Apps list section-->
+	<section class="Margin-top-10">
+		<div class="lay-item__box">
+			<div class="lay-item__left">
+				<div class="Panel services-item__wrap">
+					<div class="Panel-header header-typeb">Bindings<span class="bs-number"></span>
+						<!-- <div class="btn-right">
+							<a href="#" class="icon-detail_pop">상세보기</a>
+						</div> -->
+					</div>
+					<div class="Panel-content">
+						<ul class="List bindings-list" id="bindAppListUl">
+						</ul>
+						<div class="bind-bot__wrap">
+							<div class="bind-title">Bind an App
+								<div class="btn-right">
+									<button class="Button Disabled" data-disabled="true" id="bindAppBtn">Bind</button>
+								</div>
+							</div>
+							<div class="Divselect Width-100">
+								<select id="bindAppSelected">
+								</select>
+								<span></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<form id="serviceDetailCredentialsForm">
+				<div class="lay-item__right">
+					<div class="Panel services-item__height">
+						<div class="Panel-header header-typeb" id="rightTitle">Plan</div>
+						<div class="Panel-content">
+							<div class="syslog-wrap" id="sysLogContent" style="display: none;">
+								<h4 class="syslog-title">
+									Streaming Application Logs
+									<label class="ImageCheckbox syslogchkbox">
+										<input class="Checkbox syslogchk" type="checkbox" id="sysLogUseYn" name="sysLogUseYn">
+									</label>
+								</h4>
+								<input class="Textinput Width-100" placeholder="Input System Log Url" id="syslogUrl" name="syslogUrl" disabled="disabled" style="background: #d2d2d2;">
+							</div>
+							<h4 class="default_title" id="credentialsTitle" style="display: none;">Credentials</h4>
+							<table class="Table paas-tbl__typec" id="planTable">
+						        <colgroup>
+						            <col style="width: 50px">
+						            <col style="width: 200px">
+						            <col>
+						            <col>
+						        </colgroup>
+						        <tbody>
+						        </tbody>
+							</table>
+							<div class="btn-right-align">
+								<button class="Button" id="modifyUserProvidedBtn" style="display: none;">Modify</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+	<!-- //Apps list section-->
+</div>
+
+<!--rename dialog-->
+<div id="rename-pop-service" class="Dialog" data-dialog-type="blank" data-dialog-modal="true">
+    <div class="Dialog-contents">
+    	<div class="popup-wrap">
+			<div class="popup-contents">
+				<div class="rename-wrap">
+					<input class="Textinput rename-input" placeholder="new_name" id="newServiceNameTxt">
+					<!-- btn wrap-->
+					<div class="btn-right">
+						<button class="Button paas-btn__typea" id="renameServiceBtn">RENAME</button>
+						<button class="Button paas-btn__typea Default" id="dialogCnclBtn" name="dialogCnclBtn">CANCEL</button>
+					</div>
+					<!-- //btn wrap-->
+				</div>
+				<div class="delete-wrap">
+					<div class="delete-title__wrap">
+						<h4 class="delete-title">Delete Service</h4>
+						<div class="delete-txt">This service will be delete.</div>
+					</div>
+					<button class="Button paas-btn__typec" id="deleteServiceBtn">DELETE SERVICE</button>
+				</div>
+			</div>
+		</div>
+    </div>
+</div>
+<!--//rename dialog-->

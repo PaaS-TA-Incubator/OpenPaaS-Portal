@@ -1,0 +1,91 @@
+<script src="@{js}/members.js"></script>
+
+<script type="text/template" id="membersItemTemplate">
+<tr data-guid="{guid}">
+	<td>{username}</td>
+	<td>
+		<label class="ImageCheckbox">
+			<input class="Checkbox managers" type="checkbox" name="chk1" value="check1">
+		</label>
+	</td>
+	<td>
+		<label class="ImageCheckbox">
+			<input class="Checkbox billing_managers developers" type="checkbox" name="chk1" value="check1">
+		</label>
+	</td>
+	<td>
+		<label class="ImageCheckbox">
+			<input class="Checkbox auditors" type="checkbox" name="chk1" value="check1">
+		</label>
+	</td>
+	<td>
+		<button class="Button Default paas-btn__typea" btn-type="remove" style="display: none;">DELETE</button>
+	</td>
+</tr>
+</script>
+
+<div class="container-wrap">
+	<!-- //history title -->
+	<!-- sub title -->
+	<h3 class="sub-title">Members</h3>
+	<!--// sub title-->
+	<!-- Apps list section-->
+	<section>
+		<div class="Panel">
+			<div class="Panel-content">
+				<div class="apps-list__header Text-right">
+					<!-- <span class="member-tbl__title">Space</span> -->
+					<div class="Divselect Width-20">
+						<select class="Select" id="selectedOptionSpace" >
+						</select>
+						<span></span>
+					</div>
+					<input class="Textinput Width-20" id="inviteEmail">
+					<button class="Button paas-btn__typea" id="inviteBtn">INVITE</button>
+					<!-- <button class="Button Default paas-btn__typea" id="cnclInvite">CANCEL</button> -->
+				</div>
+				
+				<table class="Table paas-tbl__typeb" id="orgTable">
+		            <colgroup>
+		                <col>
+		                <col style="width: 150px;">
+		                <col style="width: 170px">
+		                <col style="width: 200px">
+		                <col style="width: 120px">
+		            </colgroup>
+		            <thead>
+		                <tr>
+		                    <th data-sortable="string">Member Name</th>
+		                    <th data-sortable="string">Org Manager</th>
+		                    <th data-sortable="string">Org Billing Manager</th>
+		                    <th data-sortable="string" colspan="2">Org Auditor</th>
+		                </tr>
+		            </thead>
+		            <tbody id="membersListTbody"></tbody>
+		    	</table>
+		    	
+		    	<!-- Space Member Table -->
+		    	<table class="Table paas-tbl__typeb" id="spaceTable" style="display: none;">
+		            <colgroup>
+		                <col>
+		                <col style="width: 150px;">
+		                <col style="width: 170px">
+		                <col style="width: 200px">
+		                <col style="width: 120px">
+		            </colgroup>
+		            <thead>
+		                <tr>
+		                    <th data-sortable="string">Member Name</th>
+		                    <th data-sortable="string">Space Manager</th>
+		                    <th data-sortable="string">Space Developer</th>
+		                    <th data-sortable="string"colspan="2">Space Auditor</th>
+		                </tr>
+		            </thead>
+		            <tbody id="membersListTbody">
+		            </tbody>
+		    	</table>
+			</div>
+		</div>
+	</section>
+	<!-- //Apps list section-->
+</div>

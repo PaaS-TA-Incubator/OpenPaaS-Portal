@@ -1,0 +1,29 @@
+<script src="@{js}/index.js"></script>
+
+<!--login-->
+<div class="paas-login">
+	<form id="signinForm">
+		<h1 class="paas-login__logo">SK <span class="paas-orange">Cloud Foundry Portal</span></h1>
+		<div class="login-box">
+			<p class="login-start__txt">Welcome!</p>
+			<div class="login-wrap">
+				<ul class="login-list">
+					<li><input type="text" name="username" placeholder="Email@gmail.com" required pattern="[a-zA-Z0-9@~!@#$%^&*\(\)-_\.]*"></li>
+					<li><input type="password" name="password" placeholder="Password" required pattern="[a-zA-Z0-9@~!@#$%^&*\(\)-_\.]*"></li>
+				</ul>
+				<div class="submit-group">
+					<span class="glyphicon glyphicon-refresh small-progress" id="signProgress"></span>
+					<input type="submit" style="display: none;">
+					<button class="Button login-btn" id="signin">SIGN IN</button>
+				</div>
+			</div>
+			<div class="account-wrap">
+				<ul class="account-list" style="display: none;">
+					<li><a href="#">Create accout</a></li>
+					<li><a href="#">Reset password</a></li>
+				</ul>
+			</div>
+		</div>
+	</form>
+</div>
+<!-- </div> -->

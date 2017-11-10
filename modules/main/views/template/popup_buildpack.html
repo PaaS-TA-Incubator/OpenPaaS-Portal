@@ -1,0 +1,30 @@
+<div class="popup-wrap">
+	<div class="popup-contents">
+		<div class="appscnt-wrap">
+			<p class="appscnt-box">
+				container-customizer=1.1.0_RELEASE java-buildpack=v3.11-https://github.com/cloudfoundry/javabuildpack.git#eba4df6<br>
+java-main open-jdk-like-jre=1.8.0_111 open-jdk-like-memorycalculator=2.0.2_RELEASE
+spring-auto-reconfiguration=1.10.0_RELEASE
+			</p>
+		</div>
+		<div class="appscnt-wrap">
+			<h4 class="appscnt-title">Start CMD</h4>
+			<p class="appscnt-box">
+				CALCULATED_MEMORY=$($PWD/.java-buildpack/open_jdk_jre/bin/java-buildpack-memorycalculator-2.0.2_RELEASE<br>
+-memorySizes=metaspace:64m..,stack:228k.. -memoryWeights=heap:<br>
+65,metaspace:10,native:15,stack:10 -memoryInitials=heap:100%,metaspace:100% -stackThreads=300 -
+totMemory=$MEMORY_LIMIT) && JAVA_OPTS=“-Djava.io.tmpdir=$TMPDIR -XX:OnOutOfMemoryError=$PWD/.java
+buildpack/open_jdk_jre/bin/killjava.sh<br>
+$CALCULATED_MEMORY” && SERVER_PORT=$PORT eval exec<br>
+$PWD/.java-buildpack/open_jdk_jre/bin/java $JAVA_OPTS -cp $PWD/.<br>
+org.springframework.boot.loader.WarLauncher
+			</p>
+		</div>
+		<div class="appscnt-wrap">
+			<h4 class="appscnt-title">Stack</h4>
+			<p class="appscnt-box">
+				cflinuxfs2(Cloud Foundry Linux-based filesystem)
+			</p>
+		</div>
+	</div>
+</div>

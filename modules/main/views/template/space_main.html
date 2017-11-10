@@ -1,0 +1,197 @@
+<script src="@{js}/space_main.js"></script>
+<script src="@{js}/organization/app_navi.js"></script>
+<script src="@{js}/organization/app_space.js"></script>
+<script src="@{js}/organization/app_apps.js"></script>
+<script src="@{js}/organization/app_services.js"></script>
+<script src="@{js}/organization/app_security_group.js"></script>
+<script src="@{js}/organization/app_common.js"></script>
+
+<script type="text/template"  id="appListItemTemplate">
+<tr>
+	<td><span class="dash-app__status status-running" id="status_"></span></td>
+	<td class="text-left-align" id="appName_"></td>
+	<td class="text-left-align" id="route_"></td>
+	<td id="instance_"></td>
+	<td id="memory_"></td>
+	<td id="diskLimit_"></td>
+</tr>
+</script>
+
+<script type="text/template"  id="credentialsTemplate">
+<div>
+	<input class="Textinput credential-input" placeholder="key" id="serviceInstanceNameKey" name="key">
+	<input class="Textinput credential-input" placeholder="value" id="serviceInstanceNameValue" name="value">
+		<button class="paas-btn__plus">생성하기</button>
+</div>
+</script>
+
+<script type="text/template" id="securityGroupItemTemplate">
+<li class="security-item" id="securityItem">
+	<div class="security-item-header" id="securityItemHeader">
+		<div class="security-item-name" id="securityName">
+			{name}
+		</div>
+		<div class="security-item-state" id="securityState">
+			{state]
+		</div>
+	</div>
+	<div class="security-item-content" style="display: none;">
+		<div class="security-item-content-destination">
+		</div>
+		<div class="security-item-content-protocol">
+		</div>
+	</div>
+</li>
+</script>
+
+<div class="container-wrap">
+	<!--history title-->
+	<div class="history-list" id="pageNavi">
+		Loading..
+	</div>
+	<!-- //history title -->
+	<!-- spaces section-->
+	<section class="spaces-sect">
+		<article class="Panel apps-select__wrap">
+			<div class="Panel-content">
+				<div class="spaces-lay__box">
+					<div class="lay-item__left">
+						<div class="spaces-select__title" id=""><span class="content-tag">Space</span><span id="spaceName">loading..</span></div>
+						<p class="spaces-percent"><span id="spaceQuota">00%</span> of Quota</p>
+					</div>
+					<div class="lay-item__center selected">
+						<dl class="apps-status">
+							<dt>APPS<p class="apps-num" id="appsTotNum"></p></dt>
+							<dd class="apps-status__info">
+								<ul>
+									<li><span class="dash-app__status status-running"><em class="apps-status__num" id="startedAppCount">0</em>Running</span></li>
+									<li><span class="dash-app__status status-stopped"><em class="apps-status__num" id="stoppedAppCount">0</em>Stopped</span></li>
+									<li><span class="dash-app__status status-down"><em class="apps-status__num" id="downAppCount">0</em>Down</span></li>
+								</ul>
+							</dd>
+						</dl>
+					</div>
+					<div class="lay-item__right">
+						<div class="services-title">SERVICES</div>
+						<p class="services-num" id="serviceTotNum">0</p>
+					</div>
+					<div class="lay-item__securityGroup">
+						<div class="services-title">Security Groups</div>
+						<p class="services-num" id="securityGroupTotNum">0</p>
+					</div>
+				</div>
+			</div>
+		</article>
+		<a class="cloud-config__btn" href="javascript:;" id="dialog-rename-space"><img src="@{images}/btn-config.png" alt="설정"></a>
+	</section>
+	<!-- //spaces section-->
+	<!-- Apps list section-->
+	<section id="sectionArea">
+		<div class="Panel">
+			<div class="Panel-content" id="appsContent">
+				<div class="apps-list__header">
+					<div class="apps-title" id="tableTitle"><span id="listCount"></span><span id="listName"></span>
+						<!-- <button class="Button Onlyicon" id="searchBtn"><span class="Icon apps-btn__search" data-position="top"></span></button> -->
+					</div>
+					<div class="btn-right" style="display: none;" id="createServiceBtn">
+						<button class="Button paas-btn__typea" id="createuser-pop">Create User-Provided Service</button>
+					</div>
+				</div>
+				<table class="Table paas-tbl__typeb" id="tableBody">
+		            <colgroup id="colgroupArea">
+		                <col id="col1_size" style="width: 120px">
+		                <col id="col2_size" style="width: 200px">
+		                <col id="col3_size" >
+		                <col id="col4_size" style="width: 120px">
+		                <col id="col5_size" style="width: 120px">
+		                <col id="col6_size" style="width: 120px">
+		            </colgroup>
+		            <thead id="theadArea">
+		                <tr>
+							<th id="th1_id" data-sortable="string">Status</th>
+							<th id="th2_id" data-sortable="string">App Name</th>
+		                    <th id="th3_id" data-sortable="string">Route</th>
+		                    <th id="th4_id" data-sortable="number">Instances</th>
+		                    <th id="th5_id" data-sortable="number">MemoryLimit</th>
+		                    <th id="th6_id" data-sortable="number">Disk Limit</th>
+		                </tr>
+		            </thead>
+		            <tbody id="appListTbody">
+		            </tbody>
+		    	</table>
+			</div>
+			
+			<div class="Panel-content" id="securityGroupsContent" style="display: none;">
+				<div class="apps-list__header">
+					<div class="apps-title" id="tableTitle"><span id="securityListCount">(0)</span> Security Groups
+					</div>
+				</div>
+				
+				<div class="nonTable__wrap">
+					<ul class="security-groups" id="securityGroups"></ul>
+				</div>
+					
+			</div>
+		</div>
+	</section>
+	<!-- //Apps list section-->
+</div>
+
+<!--rename dialog-->
+<div id="rename-pop-space" class="Dialog" data-dialog-type="blank" data-dialog-modal="true">
+    <div class="Dialog-contents">
+    	<div class="popup-wrap">
+			<div class="popup-contents">
+				<div class="rename-wrap">
+					<input class="Textinput rename-input" placeholder="new_name" id="newSpaceNameTxt">
+					<!-- btn wrap-->
+					<div class="btn-right">
+						<button class="Button paas-btn__typea" id="renameSpaceBtn">RENAME</button>
+						<button class="Button paas-btn__typea Default" id="dialogCnclBtn" name="dialogCnclBtn">CANCEL</button>
+					</div>
+					<!-- //btn wrap-->
+				</div>
+				<div class="delete-wrap">
+					<div class="delete-title__wrap">
+						<h4 class="delete-title">Delete Space</h4>
+						<div class="delete-txt">This will permanently delete all of the apps in this space.</div>
+					</div>
+					<button class="Button paas-btn__typec" id="deleteSpaceBtn">DELETE SPACE</button>
+				</div>
+			</div>
+		</div>
+    </div>
+</div>
+<!--//rename dialog-->
+
+<div id="createUserProviderDialog" class="Dialog" data-dialog-type="blank" data-dialog-modal="true" data-resizable="true">
+	<div class="popup-wrap">
+		<div class="popup-contents">
+			<div class="rename-wrap">
+				<input class="Textinput Width-100" placeholder="service-instance-name" id="serviceInstanceName" name="name">
+			</div>
+			
+			<div class="syslog-wrap">
+				<h4 class="syslog-title">
+					Streaming Application Logs
+					<label class="ImageCheckbox syslogchkbox">
+						<input class="Checkbox syslogchk" type="checkbox" id="sysLogUseYn" name="sysLogUseYn">
+					</label>
+				</h4>
+				<input class="Textinput Width-100" placeholder="Input System Log Url" id="syslogUrl" name="syslogUrl" disabled="disabled" style="background: #d2d2d2;">
+			</div>
+			
+			<div class="credential-wrap">
+				<h4 class="credential-title">Credentials</h4>
+				<div id="credentialItemDiv">
+				</div>
+				<!-- btn wrap-->
+				<div class="btn-right pop-btn__gutter">
+					<button class="Button paas-btn__typea" id="regUserProviderServiceBtn">CREATE</button>
+					<button class="Button paas-btn__typea Default" name="dialogCnclBtn">CANCEL</button>
+				</div>
+				<!-- //btn wrap-->
+			</div>
+		</div>
+	</div>
+</div>

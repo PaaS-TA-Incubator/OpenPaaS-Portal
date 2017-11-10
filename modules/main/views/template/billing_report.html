@@ -1,0 +1,98 @@
+<script src="@{js}/billing_report.js"></script>
+<script src="@{js}/organization/app_common.js"></script>
+
+<div class="container-wrap">
+	<h3 class="sub-title">Usage Report</h3>
+	<section class="Billing">
+		<div class="statement">
+			<label>Usage Statement : </label>
+			<div class="Divselect Width-20" data-placeholder="Selected Statement">
+				<select class="Select" id="selectedOptionStatement">
+				</select>
+				<span></span>
+			</div>
+			<span style="padding-left: 78px;">
+				<button class="Button" data-disabled="false" id="excelExportBtn" >Excel Export</button>
+			</span>
+		</div>
+		
+		<!--Usage Charge -->
+		<!-- <label>Usage Charge</label> -->
+		<div class="BillingPanel lay-width__40">
+			<div class="Panel-header center-align">Usage Charge</div>
+			<div>
+				<table class="Table paas-tbl__typeb billing">
+					<colgroup>
+						<col width="50%">
+						<col width="50%">
+					</colgroup>
+					<thead>
+						<tr>
+							<th>Usage Charge Name</th>
+							<th>Total</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Apps</td>
+							<td class="center-align" id="totalUsageCharge"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<!--Usage Charge -->
+		
+		<!--Space Detail -->
+		<!-- <label>Space Details</label> -->
+		<div class="Panel lay-width__40">
+			<div class="Panel-header center-align">Space Details</div>
+			<ul class="Accordion" id="billingSpaceDetail">
+				<li style="display: none;">
+					<a></a>
+					<ul>
+						<li>
+							<table class="Table paas-tbl__typeb">
+								<colgroup>
+									<col width="20%">
+									<col width="20%">
+									<col width="20%">
+									<col width="20%">
+									<col width="20%">
+								</colgroup>
+								<thead class="center-align">
+									<tr>
+										<th data-sortable="string">App Name</th>
+										<th data-sortable="string">State</th>
+										<th data-sortable="number">Instances</th>
+										<th data-sortable="number">Memory</th>
+										<th data-sortable="number">Usage</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<!--Usage Charge Panel-->
+	</section>
+	
+		<!-- <div class="Panel">
+			<div class="Panel-header">Events
+				<div class="btn-right">
+					<a href="javascript:;" class="icon-detail_pop" id="openEventDialog">Detail View</a>
+				</div>
+			</div>
+			<div class="Panel-content">
+				<ul class="List paas-scroller" id="eventsPanel">
+				</ul>
+			</div>
+		</div>
+	</section> -->
+</div>
+<form id="excelExportForm" action="/excel_export">
+	<input type="hidden" id="excelDataList" name="excelDataList" value="">
+</form>

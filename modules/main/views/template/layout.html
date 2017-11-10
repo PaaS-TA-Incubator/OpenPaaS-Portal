@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<title>#{brand} OpenPaaS Portal</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<link rel="stylesheet" href="@{libs}/alopex/css/alopex-ui-default.css">
+	<link rel="stylesheet" href="@{libs}/alopex/css/src/alopex-ext.css">
+	<link rel="stylesheet" href="@{css}/paas-layout.css">
+	<link rel="stylesheet" href="@{css}/paas-ui.css">
+	<link rel="stylesheet" href="@{css}/cf-common.css">
+	<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+	<script src="@{libs}/alopex/js/alopex-ui.min.js"></script>
+	<script src="@{libs}/alopex/js/src/alopex-ext.js"></script>
+	<script src="@{libs}/alopex/js/src/alopex-ext-setup.js"></script>
+	<script src="@{js}/paas-ui.js"></script>
+	<script src="@{js}/cf-common.js"></script>
+
+	<script src="@{libs}/pumpkin.js"></script>
+	<script src="@{libs}/form.js"></script>
+	<script src="@{libs}/event_emitter.js"></script>
+	<script src="@{libs}/cf/cf-client.js"></script>
+	<script src="@{js}/common.js"></script>
+	<script src="@{js}/lnbMenu.js"></script>
+	<script src="@{js}/notifications.js"></script>
+</head>
+
+<script type="text/template" id="lnbMenuTemplate">
+<nav class="paas-lnbwrap">
+	<ul class="lnb-main" id="lnb_items">
+	</ul>
+</nav>
+</script>
+
+<script type="text/template" id="lnbMenuItemTemplate">
+<li id="{orgLiId}" class="expandable">
+	<a href="#"><span class="lnb-tag">ORG</span>{orgName}</a>
+	<ul class="lnb-sub" id="{guid}">
+	</ul>
+	<div class="lnb-sub__only" style="display:none;"><a href="{domains}">Domains</a></div>
+	<div class="lnb-sub__only" style="display:none;"><a href="{members}">Members</a></div>
+	{monitoring}
+</li>
+</script>
+
+<script type="text/template" id="listLoadingBarTemplate">
+<tbody id='listLoadingBar'>
+	<tr>
+		<td colspan="{colspan}" class="loadingBar" style="text-align: center;">
+			<div id="listLoadingBar">
+				<img alt="" src="@{images}/loading_list.gif" >
+				<span>Loading...</span>
+			</div>
+		</td>
+	</tr>
+</tbody>
+</script>
+
+<script type="text/template" id="panelLoadingBarTemplate">
+<div class="loadingBar" id="panelLoadingBar" style="text-align: center;">
+	<div>
+		<img alt="" src="@{images}/loading_pannel.gif">
+	</div>
+	<span>
+		Loading...
+	</span>
+</div>
+</script>
+
+<script type="text/template" id="panelLoadingBarTemplate_table">
+<tbody id="panelLoadingBar_table">
+	<tr>
+		<td colspan="{colspan}" class="loadingBar" style="text-align: center;">
+			<div><img alt="" src="@{images}/loading_pannel.gif"></div>
+			<span>Loading...</span>
+		</td>
+	</tr>
+</tbody>
+</script>
+
+<script>
+var lnbInfo = {};
+window.onhashchange = function(){
+	_global.parseHash();
+	_ee.emit('hashchange');
+};
+var docsUrl = "#{docsUrl}";
+var supportUrl = "#{supportUrl}";
+var noticeUrl = "#{noticeUrl}";
+var statusUrl = "#{statusUrl}";
+var monitoringUrl = "#{monitoringUrl}";
+var dashboards = "#{dashboards}";
+var loggingDashboard = "#{loggingDashboard}";
+var billingReport = "#{billingReport}";
+var notificationEndpoint = "#{notificationEndpoint}";
+$(document).ready(function(){
+	$(".user-menu__list").on('mouseleave', function(e){
+		$("#user_memu__list").hide();
+	});
+	var pagename = location.pathname;
+	$('nav a[href="' + pagename + '"]').parent().addClass('active');
+	if (docsUrl != "disabled") {
+		$("#topMenu").append('<li id="btnDocs"><a href=' + docsUrl + ' target="_blank">Docs</a></li>');
+	}
+	if (supportUrl != "disabled") {
+		$("#topMenu").append('<li id="btnSupport"><a href=' + supportUrl + ' target="_blank">Support</a></li>');
+	}
+	if (noticeUrl != "disabled") {
+		$("#topMenu").append('<li id="btnNotice"><a href=' + noticeUrl + ' target="_blank">Notice</a></li>');
+	}
+	if (statusUrl != "disabled") {
+		$("#topMenu").append('<li id="btnStatus"><a href=' + statusUrl + ' target="_blank">Status</a></li>');
+	}
+	$("#topMenu").append('<li><a href="javascript:;" class="paas-user" id="username" data-username="#{username}">#{username}</a></li>');
+	$(".paas-user").parent('li').on('mouseenter', function(){
+		if ($("#user_memu__list").css('display') == 'block'){
+			$("#user_memu__list").hide();
+		} else {
+			$("#user_memu__list").show();
+		}
+	});
+
+	$(".user-menu__list").on('mouseleave', function(e){
+		$("#user_memu__list").hide();
+	});
+
+	var pagename = location.pathname;
+	$('nav a[href="' + pagename + '"]').parent().addClass('active');
+});
+</script>
+
+<body id="pageBody">
+	<form id = "lnbInfoForm">
+		<input type="hidden" id="gguid" name="gguid" >
+	</form>
+	<div class="paas-wrap">
+		<!-- header -->
+		<header class="paas-header">
+			<div class="paas-gnb__wrap">
+				<div class="paas-gnb">
+				<a href="/org_main">
+					<h1>
+						<span class="paas-orange">#{brand}</span> <span class="paas-white">OpenPaaS Portal</span>
+						</h1>
+					</a>
+					<!-- gnb -->
+					<div class="paas-gnb__main">
+						<ul id="topMenu">
+							<li><a href="/marketplace">Marketplace</a></li>
+						</ul>
+						<!-- user menu-->
+						<div class="user-memu__wrap">
+							<ul class="user-menu__list" id="user_memu__list" style="display: none;">
+								<li><a href="/profile" id="profile">My Account</a></li>
+								<li><a href="/signout.do" id="signout">Log out</a></li>
+							</ul>
+						</div>
+						<!-- //user menu-->
+					</div>
+					<!-- //gnb -->
+				</div>
+			</div>
+		</header>
+		<!-- //header -->
+
+		<!-- main-contents -->
+		<div class="paas-subcontent" id="mainContent">
+			<nav class="paas-lnbwrap">
+				<ul class="lnb-main" id="lnb_items"></ul>
+			</nav>
+			<!-- contents -->
+			<div class="sub-contents__wrap" id="subContents">
+				<!-- notification alarm bar start -->
+        <div id="notificationBar" class="noti_wrap" style="display: none;">
+          <div class="noti_cnt_wrap">
+            <div id="noti_cnt"></div>
+          </div>
+			    <div class="noti_text">
+						<a href="#{noticeUrl}" target="_blank">Please check notice. There are unread notices about events that can affect your application.</a>
+	        </div>
+	        <button id="notificationCloseBtn" class="img_close_btn">X</button>
+				</div>
+				<!-- notification alarm bar end -->
+				<div class="backgroundProgress" id="backgroundProgress" style="display: none;">
+					<div>
+						<img alt="" src="@{images}/loading_list.gif">
+					</div>
+					<span>
+						Loading...
+					</span>
+				</div>
+				${#{1}}
+			</div>
+		</div>
+
+		<!-- footer -->
+		<footer class="paas-footer" id="footer">
+			<span class="footer-txt">#{copyright}</span>
+		</footer>
+		<!-- //footer -->
+
+	</div>
+
+	<!-- Error Alert Popup -->
+	<div id="alertPopup" class="Dialog" data-dialog-type="close" data-dialog-modal="true">
+	<!-- <div class="popup-wrap" id="alertPopup" style="display: none;"> -->
+		<button class="general-close xButtonClick" type="button" name="xButtonClick">닫기</button>
+		<div class="general-wrap warning">
+			<dl>
+				<dt>Warning Popup</dt>
+				<dd id="warningPopupText"></dd>
+			</dl>
+		</div>
+		<div class="general-btn__wrap"></div>
+	</div>
+
+	<!-- Confirm Alert Popup -->
+	<div id="confirmPopup" class="Dialog" data-dialog-type="blank" data-dialog-modal="true">
+		<button class="general-close xButtonClick" type="button" name="xButtonClick">닫기</button>
+		<div class="general-wrap warning">
+			<dl>
+				<dt id="popupTitle"></dt>
+				<dd id="confirmPopupText"></dd>
+			</dl>
+		</div>
+		<div class="general-btn__wrap">
+			<button class="Button paas-btn__typea" id="confirmPopupBtn">CONFIRM</button>
+			<button class="Button paas-btn__typea Default" id="dialogCnclBtn" name="dialogCnclBtn">CANCEL</button>
+		</div>
+	</div>
+
+	<!-- Error Alert Popup -->
+	<div id="infoPopup" class="Dialog" data-dialog-type="close" data-dialog-modal="true">
+	<!-- <div class="popup-wrap" id="alertPopup" style="display: none;"> -->
+		<button class="general-close xButtonClick" type="button" name="xButtonClick">닫기</button>
+		<div class="general-wrap confirm">
+			<dl>
+				<dt>Infomation Popup</dt>
+				<dd id="infoPopupText"></dd>
+			</dl>
+		</div>
+		<div class="general-btn__wrap">
+		</div>
+	</div>
+
+	<!-- Confirm Alert Popup (Delete) -->
+	<div id="confirmDelPopup" class="Dialog" data-dialog-type="blank" data-dialog-modal="true">
+		<button class="general-close xButtonClick" type="button" name="xButtonClick">닫기</button>
+		<div class="general-wrap warning">
+			<dl>
+				<dt>Confirm Popup</dt>
+				<dd id="confirmDelPopupText"></dd>
+			</dl>
+		</div>
+		<div class="general-btn__wrap">
+			<button class="Button paas-btn__typea" id="confirmDelPopupBtn">CONFIRM</button>
+			<button class="Button paas-btn__typea Default" id="dialogCnclBtn" name="dialogCnclBtn">CANCEL</button>
+		</div>
+	</div>
+</body>
+</html>

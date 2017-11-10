@@ -1,0 +1,353 @@
+@CHARSET "UTF-8";
+/*---------------------------------------
+	Customize css
+---------------------------------------*/
+
+.container-wrap {
+	min-height: calc(100vh - 96px);
+}
+
+.paas-event__ico.crash {
+	background-position: 0 -106px;
+}
+.paas-event__ico.update {
+	background-position: 0 -266px;
+}
+.paas-event__ico.info {
+	background-position: 0 -318px;
+}
+
+/* loadding bar */
+.backgroundProgress {
+	padding-top : 150px;
+	padding-bottom : 637px;
+	text-align: center;
+	display: none;
+}
+.loadingBar{
+	text-align: center;
+}
+
+/* App State Loading Bar 필요 */
+.dash-app__status.status-stopped:before {
+	/* background: url("../images/loading.gif") no-repeat 0 -39px; */
+}
+/* .Button:hover{
+	background: #ff6b32;
+	border: 1px solid #ff6b32;
+	color: #ffffff;
+} */
+
+.event-dialog-state{
+	padding-top: 3px;
+	width: 180px;
+}
+.event-dialog-actor{
+	width: 300px;
+}
+.event-dialog-timestamp{
+	width: 200px;
+}
+
+.List.route-list{
+	overflow-y: auto;
+}
+.lay-item__left, .lay-item__center{
+	padding-right: 10px;
+}
+
+.lnb-sub__only {
+     display: none;
+}
+
+.paas-btn__minus {
+	cursor: pointer;
+	width: 37px;
+	height: 32px;
+	position: relative;
+	top: 3px;
+	text-indent: -9999px;
+	border: 0;
+	background: url("../images/icon-minus.png") no-repeat 0 0;
+}
+.paas-btn__minus:hover,
+.paas-btn__minus:active {
+	background: url("../images/icon-minus.png") no-repeat 0 -52px;
+}
+
+.paas-app__ico,
+.List.pass-listlink > li img.Thumbnail, .List.bindings-list > li img.Thumbnail{
+	padding : 3px;
+}
+.left-align{
+	text-align: left;
+}
+.right-align{
+	text-align: right;
+}
+.center-align{
+	text-align: center;
+}
+.text-left-align {
+	text-align: left;
+	padding: 4px 10px;
+}
+
+.btn-right-align {
+	text-align: right;
+	padding: 10px 50px 0px 0px;
+}
+
+.refresh-right-align {
+	text-align: right;
+}
+
+.dash-fst__height-100 {height: 100px}
+.pass-textarea-80 {
+	width: 100%;
+	height: 86px;
+	border: 0;
+	background: #f1efef;
+	resize: none;
+}
+
+@media (max-width: 1182px) {
+    body {
+        width: 1182px!important
+    }
+}
+@media (min-width: 1182px) {
+    body {
+        width: auto
+    }
+}
+
+.Table.paas-tbl__typeb {
+	min-width: 100%;
+	color: #666666;
+	border: 0;
+}
+
+.history-list {
+	padding-bottom: 9px;
+	height: 32px;
+}
+
+#membersListTbody > tr > td{
+	padding-left: 20px;
+}
+
+.lnb-main > li > div > a:hover {
+	color: #ffffff;
+	background: #353535;
+}
+.lnb-main > li > div > a.selected {
+	color: #ffffff;
+	background: #353535;
+	border-bottom: 2px solid #ff7200;
+}
+.apps-list__header{
+	height: 47px;
+}
+.Table .AscendingOrder .Icon, .Table .DescendingOrder .Icon{
+	/* position: static; */
+}
+
+/* Billing Report */
+.indent_5{
+	padding-left: 5px;
+}
+.indent_10{
+	padding-left: 10px;
+}
+.billingReportLink{
+	position: relative;
+    bottom: 6px;
+    padding-left: 70px;
+}
+.Billing{
+	margin: 20px 10px 10px 20px;
+}
+
+.Billing .statement{
+	margin: 20px 0 20px 0;
+}
+
+.Billing .Panel .charge{
+}
+
+.lay-width__40{
+	width : 627px;
+}
+
+.BillingPanel {
+	margin-bottom: 30px;
+	font-size: 12px;
+	color: #999999;
+	background: #ffffff;
+	border: 1px solid #dcdfe2;
+	border-radius: 0;
+}
+.BillingPanel .Panel-content {
+	padding: 0;
+}
+.BillingPanel .Panel-header {
+	padding: 7px 10px 7px 16px;
+	font-size: 15px;
+	font-weight: bold;
+	color: #353535;
+	border-bottom: 3px solid #e6e6e6;
+	background: #ffffff;
+	border-radius: 0;
+}
+.Accordion,
+.Accordion>li,
+.Accordion>li>ul,
+.Accordion>li>ul>li{
+	border: 0px;
+}
+
+.Accordion > li.Expandable > a{
+	background: #f1f1f1;
+}
+
+.Accordion > li > a:hover,
+.Accordion > li.Expandable > a:hover,
+.Accordion > li.Expandable.Expanded > a, .Accordion > li.Expandable > a:hover {
+  background: #d4d4d4;
+}
+
+.Accordion ul > li:hover, .Accordion ul > li.Expanded{
+	background: #ffffff;
+}
+
+.Accordion li > div{
+	padding: 0px;
+	background: #ffffff;
+}
+.Accordion .Table {
+	border: 0px;
+}
+.Accordion .Table th{
+	background-color:#f1f1f1 
+}
+.af-table-wrapper.af-default.Table-wrapper{
+	border-top: 0px;
+}
+.Dateinput > .Clear, .Daterange .Clear{
+	top:5px; 
+	right: 25px;
+}
+.Table.paas-tbl__typeb.billing{
+	cursor: default;
+}
+/* Billing Report */
+
+.syslog-wrap{
+	position: relative;
+    padding: 10px 10px 30px 10px;
+    border-top: 1px solid #f8f9fa;
+}
+.ImageCheckbox.syslogchkbox:after{
+	    margin-top: -5px;;
+}
+.syslogchk{
+	margin-left: 15px;
+}
+.syslog-title{
+	margin-bottom: 0px;
+}
+.default_title{
+	padding-left: 10px;
+	font-size: 14px;
+    color: #787878;
+}
+
+.security-groups_dialog > li,
+.security-groups > li{
+	cursor: pointer;
+}
+.security-item-header:before{
+	content: '';
+    float: left;
+    width: 15px;
+    height: 10px;
+    position: relative;
+    top: 9px;
+    background: url(../images/icon-paas.png) no-repeat 0 -0px;
+    background-size: 12px;
+}
+.security-item-header.expended:before{
+    background: url(../images/icon-paas.png) no-repeat 0 -101px;
+}
+.security-item-header .security-item-name{
+	font-size: 14px;
+	font-weight: bold;
+}
+.security-item-header .security-item-state{
+    margin-left: 15px;
+    font-size: 12px;
+}
+.security-item-content{
+	margin-top: 5px;
+	margin-left: 20px;
+}
+.nonTable__wrap{
+	padding: 8px 20px;
+	border-top: 3px solid #d8e0e3;
+}
+
+/* notification alarm */
+.noti_wrap {
+	background-color: #ff9600;
+	text-align: left;
+	font-weight: bold;
+	color: white;
+	height: 30px;
+    padding-top:  10px;
+    padding-left: 20px;
+    padding-bottom: 5px;
+}
+.noti_wrap .noti_cnt_wrap {
+	float:left;
+    width: 23px;
+    height: 23px;
+    text-align: center;
+    background: #ff3d2b; 
+    border-radius: 15px;
+    margin-left: 10px;
+    font-size: 13px;
+    vertical-align: bottom;
+}
+.noti_wrap .cnt {
+    background: #bababa; 
+}
+.noti_wrap .close {
+    background: #bababa; 
+}
+.noti_wrap .noti_cnt_wrap > div {
+    margin-top: 2px;
+}
+.noti_wrap .noti_text {
+    float:left;
+    margin-left: 10px;
+}
+.noti_wrap > div > a {
+    color: #ffffff;
+}
+.img_close_btn {
+	float:left;
+	color: #ffffff;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    background: #c0c0c0; 
+    border-radius: 6px;
+    margin-left: 10px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    font-size: 12px;
+    font-weight: bold;	
+    border: 1px solid #c0c0c0;	
+}

@@ -1,0 +1,310 @@
+@CHARSET "UTF-8";
+
+.Accordion, .Accordion *,
+.Button, .Button *,
+.Carousel, .Carousel *,
+.Checkbox, .Checkbox *,
+.Dateinput, .Dateinput *,
+.Datepicker, .Datepicker *,
+.Daterange, .Daterange *,
+.Dialog, .Dialog *,
+.Divselect, .Divselect *,
+.Dropdown, .Dropdown *,
+.Dropdownbutton, .Dropdownbutton *,
+.Group, .Group *,
+.Groupbutton, .Groupbutton *,
+.Icon, .Icon *,
+.List, .List *,
+.Navigationbar, .Navigationbar *,
+.Navmenu, .Navmenu *,
+.Paging, .Paging *,
+.Panel, .Panel *,
+.Progressbar, .Progressbar *,
+.Radio, .Radio *,
+.Searchinput, .Searchinput *,
+.Select, .Select *,
+.Slider, .Slider *,
+.Spinner, .Spinner *,
+.Switch, .Switch *,
+.Table, .Table *,
+.Tabs, .Tabs *,
+.Textarea, .Textarea *,
+.Textinput, .Textinput *,
+.Tooltip, .Tooltip *,
+.Tree, .Tree *,
+.Label, .Label *,
+.Quotation, .Quotation *,
+.Cite, .Cite *,
+.Mark, .Mark *,
+.Code, .Code *,
+.Small, .Small *,
+.Strong, .Strong *,
+.Del, .Del *,
+.Alink, .Alink *,
+.Splitter, .Splitter *,
+.Hierarchical, .Hierarchical *,
+.MultiSelect, .MultiSelect * {
+	font-family: "NotoSans";
+}
+/*Panel*/
+.Panel {
+	margin-bottom: 0;
+	font-size: 12px;
+	color: #999999;
+	background: #ffffff;
+	border: 1px solid #dcdfe2;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	-ms-border-radius: 0;
+	border-radius: 0;
+	box-shadow: 0;
+}
+.Panel .Panel-content {
+	padding: 0;
+}
+.Panel .Panel-header {
+	padding: 7px 10px 7px 16px;
+	font-size: 15px;
+	font-weight: bold;
+	color: #353535;
+	border-bottom: 3px solid #e6e6e6;
+	background: #ffffff;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	-ms-border-radius: 0;
+	border-radius: 0;
+}
+/*list*/
+.List {
+	border: 0;
+}
+.List > li {
+	padding: 8px 4px;
+	border-top: 0;
+	color: #999;
+}
+.List > li > a:after {
+	content: none;
+}
+/* .List > li:nth-child(odd) {
+	background: #f8f8f8; 
+} */
+.List > li.Link > a {
+	-webkit-transition: none;
+	-moz-transition: none;
+	-o-transition: none;
+	transition: none;
+}
+/* dialog */
+.Dialog {
+	border: 0;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: 2px 5px 5px 2px #606162;
+	-moz-box-shadow: 2px 5px 5px 2px #606162;
+	box-shadow: 2px 5px 5px 2px #606162;
+	background: #f1f2f4;
+}
+.Dialog .Header {
+	height: 46px;
+	padding-left: 20px;
+	font-size: 14px;
+	line-height: 50px;
+	text-align: left;
+	color: #353535;
+	border-bottom: 0;
+	background: #f1f2f4;
+}
+.Dialog .Header .DialogBtn {
+	top: 12px;
+	background: url("../images/icon-popup-close.png") no-repeat;
+}
+.Dialog .Header .DialogBtn:hover,
+.Dialog .Header .DialogBtn:active {
+	background: url("../images/icon-popup-close.png") no-repeat;
+}
+/* textarea */
+.Textarea, .Textarea:hover, .Textarea:focus {
+	padding: 6px;
+	color: #999999;
+	line-height: 14px;
+	border: 1px solid #d6d6d6;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	-ms-border-radius: 0;
+	border-radius: 0;
+}
+/* button */
+.Button {
+	font-size: 11px;
+	background: #ff7200;
+}
+.Button, .Dropdownbutton {
+	padding: 2px 12px;
+	border: 1px solid #ff7200;
+}
+.Button.Default, .Dropdownbutton.Default {
+	background: #bbbbbb;
+	border: 1px solid #bbbbbb;
+}
+.Button.Default:hover, .Dropdownbutton.Default:active {
+	background: #939393;
+	border: 1px solid #939393;
+}
+.Button.Default.Disabled, .Dropdownbutton.Default.Disabled,
+.Button.Default.Disabled:hover, .Dropdownbutton.Default.Disabled:hover {
+	background: #e9e9e9;
+	border: 1px solid #e9e9e9;
+}
+.Button:hover, .Button:active, .Button.Checked {
+	padding: 2px 12px;
+	background: #ff7b10;
+	border: 1px solid #ff7b10;
+}
+.Button.Disabled, .Dropdownbutton.Disabled,
+.Button.Disabled:hover, .Button.Disabled:active, .Button.Disabled.Checked {
+	background: #ff8432;
+	border: 1px solid #ff8432;
+	color: #ffffff;
+}
+.Button.Onlyicon {
+	height: 20px;
+	padding: 0 9px;
+	background: #ffa922;
+	border-color: #ffa922;
+}
+.Button.Onlyicon:hover,
+.Button.Onlyicon:active {
+	height: 20px;
+	padding: 0 9px;
+	background: #ff8a00;
+	border-color: #ff8a00;
+}
+.Icon {
+	margin: -8px 0;
+}
+/* spinner */
+.Spinner {
+	width: 90px;
+	height: 26px;
+	line-height: 14px;
+	color: #353535;
+	font-size: 14px;
+	background: #f8f8f8;
+	border: 1px solid #dfe5e8;
+}
+.Spinner > input {
+	background: #f8f8f8;
+}
+.Spinner > .Up, .Spinner > .Down {
+	border-left: 1px solid #dfe5e8;
+}
+.Spinner > .Up {
+	background: url("../images/icon-paas.png") no-repeat 6px -319px;
+}
+.Spinner > .Up:hover {
+	background: #c6cacd url("../images/icon-paas.png") no-repeat 6px -319px;
+}
+.Spinner > .Down {
+	border-top: 1px solid #dfe5e8;
+	background: url("../images/icon-paas.png") no-repeat 6px -361px;
+}
+.Spinner > .Down:hover {
+	background: #c6cacd url("../images/icon-paas.png") no-repeat 6px -361px;
+}
+.Divselect {
+	height: 30px;
+	line-height: 27px;
+	color: #888888;
+	font-size: 11px;
+	vertical-align: middle;
+	border: 1px solid #e3e6e6;
+	background: #ffffff url("../images/icon-select.png") no-repeat right -132px;
+	webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	-ms-border-radius: 0;
+	border-radius: 0;
+}
+.Divselect:hover,
+.Divselect:focus  {
+	background: #ffffff url("../images/icon-select.png") no-repeat right -132px;
+}
+/* progressbar */
+.Progressbar {
+	height: 10px;
+	background: #dfe5e8;
+}
+.Progressbar div {
+	background: #ff9600;
+}
+/*textinput*/
+.Textinput::-webkit-input-placeholder {
+  color: #bbbbbb;
+}
+.Textinput::-moz-placeholder { 
+  color: #bbbbbb;
+}
+.Textinput:-ms-input-placeholder { 
+  color: #bbbbbb;
+}
+.Textinput:-moz-placeholder {
+  color: #bbbbbb;
+}
+/* imageradio */
+.ImageRadio:after {
+  content: '';
+  position: absolute;
+  top: 0%;
+  left: 10px;
+  width: 26px;
+  height: 26px;
+  margin-top: -2px;
+  background: url("../images/icon-radio.png") no-repeat 0 0;
+}
+.ImageRadio.Checked:after {
+  background: url("../images/icon-radio.png") no-repeat 0 -87px;
+}
+.ImageRadio.Disabled:after {
+  background: url("../images/icon-radio.png") no-repeat 0 -176px;
+}
+.ImageRadio.Checked.Disabled:after {
+  background: url("../images/icon-radio.png") no-repeat 0 -176px;
+}
+/* image checkbox */
+.ImageCheckbox {
+  position: relative;
+  top: -5px;
+}
+.ImageCheckbox:after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  margin-top: -5px;
+  background: url("../images/icon-check.png") no-repeat 0px 0;
+}
+.ImageCheckbox.Checked:after {
+  background: url("../images/icon-check.png") no-repeat 0 -76px;
+}
+.ImageCheckbox.Disabled:after {
+  background: url("../images/icon-check.png") no-repeat 0 -152px;
+}
+.ImageCheckbox.Checked.Disabled:after {
+  background: url("../images/icon-check.png") no-repeat 0 -152px;
+}
+.ImageCheckbox > .Checkbox {
+  _noFocusLine: expression(this.hideFocus = true);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  -khtml-opacity: 0;
+  -moz-opacity: 0;
+  opacity: 0;
+}
+
+#membersListTbody tr td img {
+  position: relative;
+  left: 7px;
+  top: 4px;
+}

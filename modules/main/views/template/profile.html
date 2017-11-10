@@ -1,0 +1,52 @@
+<script src="@{js}/profile.js"></script>
+<div class="container-wrap">
+	<!-- sub title -->
+	<h3 class="sub-title">Account</h3>
+	<!--// sub title-->
+	<!-- accout section-->
+	<section class="full-wrap">
+		<form id="profileForm">
+			<ul class="account-cnt__list change-pw">
+				<li>
+					<dl>
+						<dt>Email</dt>
+						<dd>
+							<span>#{username}</span>
+						</dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>Current Password</dt>
+						<dd>
+							<input type="password" name="currentPassword" required>
+						</dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>New Password</dt>
+						<dd>
+							<input type="password" name="newPassword" required>
+						</dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>Confirm Password</dt>
+						<dd>
+							<input type="password" name="confirmPassword" required>
+						</dd>
+					</dl>
+				</li>
+			</ul>
+			<p class="message"></p>
+			<div class="Margin-top-50">
+				<button type="submit" class="Button paas-btn__typeb"
+					id="warning-pop">CHANGE</button>
+				<button class="Button Default paas-btn__typeb" id="confirm-pop">CANCEL</button>
+			</div>
+		</form>
+	</section>
+	
+</div>

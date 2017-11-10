@@ -1,0 +1,120 @@
+<script src="@{js}/org_main.js"></script>
+<script src="@{js}/organization/app_common.js"></script>
+
+<script type="text/template" id="orgItemTemplate">
+<span class="content-tag">ORG</span>
+{orgName}
+</script>
+
+<script type="text/template" id="spaceInfoTemplate">
+<article class="Panel">
+	<div class="Panel-content">
+		<div class="spaces-lay__box">
+			<div class="lay-item__left">
+				<div class="spaces-title2">{spaceName}</div>
+				<p class="spaces-percent"><span>{spaceQuota}%</span> of Quota</p>
+			</div>
+			<div class="lay-item__center">
+				<a href="{appsLink}&tab=1">
+					<dl class="apps-status">
+						<dt>APPS<p class="apps-num">{appsTotNum}</p></dt>
+						<dd class="apps-status__info">
+							<ul>
+								<li><span class="dash-app__status status-running"><em class="apps-status__num">{startedAppCount}</em>RUNNING</span></li>
+								<li><span class="dash-app__status status-stopped"><em class="apps-status__num">{stoppedAppCount}</em>STOPPED</span></li>
+								<li><span class="dash-app__status status-down"><em class="apps-status__num">{downAppCount}</em>CRASHED</span></li>
+							</ul>
+						</dd>
+					</dl>
+				</a>
+			</div>
+			<div class="lay-item__right">
+				<a href="{appsLink}&tab=2">
+					<div class="services-title">SERVICES</div>
+					<p class="services-num">{serviceTotNum}</p>
+				</a>
+			</div>
+		</div>
+	</div>
+</article>
+</script>
+
+<script type="text/template" id="spaceDetailInfoTemplate">
+<div class="row" id="{guid}">
+	<div id="spaceName" class="col-md-1" style="vertical-align: middle;">{spaceName}</div>
+	<div id="appCount" class="col-md-1" style="vertical-align: middle;" onclick="{appsLink}">{appCount}</div>
+	<div id="appsState" class="col-md-1" style="vertical-align: middle;" onclick="{serviceLink}">
+		<span class="text-primary glyphicon glyphicon-play"></span><span id="startedAppCount"> {startedAppCount}</span><br>
+		<span class="text-muted glyphicon glyphicon-pause"></span><span id="stoppedAppCount"> {stoppedAppCount}</span><br>
+		<span class="text-danger glyphicon glyphicon-stop"></span><span id="downAppCount"> {downAppCount}</span><br>
+	</div>
+	<div id="serviceCount" class="col-md-1" style="vertical-align: middle;">{serviceCount}</div>
+</div>
+</script>
+
+<div class="container-wrap">
+	<!-- cloud progress -->
+	<section>
+		<div class="Panel cloud-status">
+			<div class="Panel-content">
+				<div class="lay-item__box">
+					<div class="lay-item__left">
+						<div class="cloud-title" id="orgNameArea">
+						</div>
+					</div>
+					<div class="lay-item__right">
+						<p class="cloud-progress__title">QUOTA</p>
+						<div class="Progressbar" id="orgProgressBar" data-default="10"></div>
+						<span class="cloud-data" id="totalUseMemory">512MB/25GB</span>
+						<span class="cloud-data__percent" id="orgProgressText">30%</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<a class="cloud-config__btn" href="javascript:;" id="dialog-rename"><img src="@{images}/btn-config.png" alt="설정"></a>
+		<!-- <a href="javascript:;" class="billingReportLink" id="bilingReport">Usage Report</a> -->
+	</section>
+	<!-- //cloud progress -->
+	<!-- spaces section-->
+	<section class="spaces-sect" id="spaceList">
+		<h3 class="sect-title">(3)Spaces</h3>
+		
+		<!-- 아래 '+ Add a Space' 버튼 클릭 시 div class="add-space" 가 오픈됩니다. -->
+		<!-- <div class="add-space__btn">+ Add a Space</div> -->
+		<form id="createSpaceForm">
+			<div class="add-space">
+				<input class="add-space__input" placeholder="Enter new space name" id="spaceNameTxt" required>
+				<button class="Button paas-btn__typea" id="createSpaceBtn" title="Add new space">ADD SPACE</button>
+				<!-- <button class="Button paas-btn__typea Default">CANCEL</button> -->
+			</div>
+		</form>
+	</section>
+	<!-- //spaces section-->
+</div>
+
+<!--rename dialog-->
+<div id="rename-pop" class="Dialog" data-dialog-type="blank" data-dialog-modal="true">
+    <div class="Dialog-contents">
+    	<div class="popup-wrap">
+			<div class="popup-contents">
+				<div class="rename-wrap">
+					<input class="Textinput rename-input" placeholder="new_name" id="newOrgNameTxt">
+					<!-- btn wrap-->
+					<div class="btn-right">
+						<button class="Button paas-btn__typea" id="renameOrgBtn">RENAME</button>
+						<button class="Button paas-btn__typea Default" id="dialogCnclBtn" name="dialogCnclBtn">CANCEL</button>
+					</div>
+					<!-- //btn wrap-->
+				</div>
+				<div class="delete-wrap">
+					<div class="delete-title__wrap">
+						<h4 class="delete-title">Delete Org</h4>
+						<div class="delete-txt">This will permanently delete all of the spaces and apps in this org.</div>
+					</div>
+					<button class="Button paas-btn__typec" id="deleteOrgBtn">DELETE ORG</button>
+				</div>
+			</div>
+		</div>
+    </div>
+</div>
+<!--//rename dialog-->

@@ -1,0 +1,535 @@
+<script src="@{js}/app_main.js"></script>
+<script src="@{js}/organization/app_navi.js"></script>
+<script src="@{js}/organization/app_apps.js"></script>
+<script src="@{js}/organization/app_services.js"></script>
+<script src="@{js}/organization/app_env.js"></script>
+<script src="@{js}/organization/app_routes.js"></script>
+<script src="@{js}/organization/app_logs.js"></script>
+<script src="@{js}/organization/app_common.js"></script>
+
+<script type="text/template" id="eventsItemTemplate">
+<li>
+	<div class="paas-event">
+		<div class="paas-event__ico {stateClass}">{state}</div>
+		<dl class="paas-event__txt">
+			<dt>{stateNm} App</dt>
+			<dd>{actor} {timestamp}</dd>
+		</dl>
+	</div>
+</li>
+</script>
+
+<script type="text/template" id="bindingServiceTemplate">
+<li class="Link">
+	<a data-dashboard="{dashboard}">
+		<span><img src="@{images}/{serviceImgName}.png" class="Thumbnail"></span>
+		<span class="bound-name">{serviceName}</span>
+		<span class="bound-option">{description}</span>
+	</a>
+	<a target="_blank" href="javascript:;" class="more-detail unbind" act-type="unbind" title="Un Binding">Un Bind</a>
+</li>
+</script>
+
+<script type="text/template" id="bindingServiceTemplateNoDashboard">
+<li class="Link">
+	<span><img src="@{images}/{serviceImgName}.png" class="Thumbnail"></span>
+	<span class="bound-name">{serviceName}</span>
+	<span class="bound-option">{description}</span>
+	<a target="_blank" href="javascript:;" class="more-detail unbind" act-type="unbind" title="Un Binding">Un Bind</a>
+</li>
+</script>
+
+<script type="text/template" id="routesRowTemplate">
+<li class="Link">
+	<a href="{urlLink}" target="_blank">{urlLink}</a>
+	<a href="javascript:;" class="more-detail unmap" title="Routes Unmap"></a>
+</li>
+</script>
+
+<script type="text/template" id="eventsDialogTemplate">
+<li>
+	<div class="paas-event">
+		<div class="paas-event__ico {stateClass}" style="top:0px;"></div>
+		<span class="event-dialog-state">{stateNm} App</span>
+		<span class="event-dialog-actor">{actor}</span>
+		<span class="event-dialog-timestamp">{timestamp}</span>
+	</div>
+</li>
+</script>
+
+<script type="text/template" id="routesDialogRowTemplate">
+<li class="Link">
+	<a href="{urlLink}" target="_blank" title = "URL">
+		<span>{urlLink}</span>
+	</a>
+	<span class="bind-status unmap" style="cursor:pointer" title="Route unmap">UnMap</span>
+</li>
+</script>
+
+<script type="text/template" id="serviceBindDialogTemplate">
+<tr>
+	<td><img src="@{images}/{serviceImgName}.png" class="bound-img"></td>
+	<td>{serviceName}</td>
+	<td>{description}</td>
+	<td><a href="javascript:;" class="manage-link" data-dashboard="{dashboard}" title="Go to Dashboard">Manage</a></td>
+	<td><a href="javascript:;" class="unbind-sel" act-type="unbind" title="Un Binding">Unbind</a></td>
+	<td><a href="javascript:;" class="view-detaile" id="show" title="Show Detail">View Credential</a></td>
+</tr>
+<tr class="credential-detail" id="detail" style="display: none;">
+	<td colspan="6">
+		<div class="detail-wrap">
+			<p class="detail-title">reacted_message</p>
+			<div class="detail-box" id="credentialsItems">{credentialsItems}</div>
+			<p class="detail-title">JSON</p>
+			<div class="detail-box" id="credentialsJson">{credentialsJson}</div>
+		</div>
+	</td>
+</tr>
+</script>
+
+<div class="container-wrap">
+	<!--history title-->
+	<div class="history-list" id="pageNavi">
+		Loading..
+	</div>
+	<!-- //history title -->
+	<!--first-layout-->
+	<section class="lay-item__box">
+		<article class="lay-item__left lay-width__long">
+			<!--panel-->
+			<div class="Panel">
+				<div class="Panel-content">
+					<div class="dash-app__header">
+						<div class="dash-app__title">
+							<span class="history-tag"></span>
+							<span id="appName"></span>
+						</div>
+						<div class="dash-app__control">
+							<button class="Button paas-iconbtn" id="stateChgBtn" ><span class="paas-icon app-info"></span></button>
+							<button class="Button paas-iconbtn" id="reStartBtn"><span class="paas-icon app-reload"></span></button>
+							<span class="dash-app__status status-running">Running</span>
+						</div>
+						<a class="dash-app__config" href="javascript:;" id="dialog-rename-apps"><img src="@{images}/btn-config.png" alt="����"></a>
+					</div>
+					<div class="dash-content__wrap">
+						<div class="paas-app" id="buildpack-popup">
+				    		<img src="" class="paas-app__ico" id="buildpack-img">
+							<div class="paas-app__txt" id="paas-app__txt"></div>
+				    	</div>
+					</div>
+				</div>
+			</div>
+			<!--//panel-->
+		</article>
+
+		<form id="scalingForm">
+		<article class="lay-item__right lay-width__short" >
+			<!--Scaling Panel-->
+			<div class="Panel">
+				<div class="Panel-header">Scaling
+					<div class="btn-right">
+						<button class="Button Disabled" data-disabled="true" id="scaleAppBtn">SCALE APP</button>
+						<button class="Button Default Disabled" data-disabled="true" id="scaleCnclBtn">CANCEL</button>
+					</div>
+				</div>
+				<div class="Panel-content dash-fst__height">
+					<div class="lay-item__box paas-variable">
+						<div class="lay-item__left">
+							<p class="dashboard-sub__title">Instances</p>
+							<div class="Spinner">
+							    <input id="instancesNum" value="0" data-id="instance" data-value="">
+							    <a class="Up"></a>
+							    <a class="Down"></a>
+							</div>
+						</div>
+						<div class="lay-item__center">
+							<p class="dashboard-sub__title">Memory Limit</p>
+							<div class="Divselect scaling-select">
+								<select id="memoryLimit" class="Select"  data-id="memory" data-value="">
+								</select>
+								<span></span>
+							</div>
+							<div class="Spinner" style="display: none;">
+							    <input id="" data-id="memory" data-value="0" value="0">
+							    <a class="Up"></a>
+							    <a class="Down"></a>
+							</div>
+						</div>
+						<div class="lay-item__right">
+							<p class="dashboard-sub__title">Disk Limit</p>
+							<div class="Divselect scaling-select">
+								<select id="diskLimit" class="Select"  data-id="disk" data-value="">
+								</select>
+								<span></span>
+							</div>
+							<div class="Spinner" style="display: none;">
+							    <input id="" value="0" data-id="memory" data-value="0">
+							    <a class="Up"></a>
+							    <a class="Down"></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--//Scaling Panel-->
+		</article>
+		</form>
+	</section>
+	<!--//first-layout-->
+
+	<!--second-layout-->
+	<section class="lay-item__box left-align">
+		<article class="lay-item__left lay-width__short">
+			<!--Event Panel-->
+			<div class="Panel">
+				<div class="Panel-header">Events
+					<div class="btn-right">
+						<a href="javascript:;" class="icon-detail_pop" id="openEventDialog">Detail View</a>
+					</div>
+				</div>
+				<div class="Panel-content">
+					<ul class="List paas-scroller" id="eventsPanel">
+					</ul>
+				</div>
+			</div>
+			<!--//Event Panel-->
+		</article>
+
+		<article class="lay-item__center lay-width__short">
+			<!--Instance Status Panel-->
+			<div class="Panel">
+				<div class="Panel-header">Instance Status
+					<div class="btn-right">
+						<img src="@{images}/icon-starting.png" style="cursor: pointer;" id="instanceStatusRefresh">
+						<a href="javascript:;" class="icon-detail_pop" id="openInstanceStatusDialog">Detail View</a>
+					</div>
+				</div>
+				<div class="Panel-content">
+					<table class="Table paas-tbl__typea" data-height="145px" data-scroll="all">
+			            <colgroup>
+			                <col style="width: 30px;">
+			                <col style="width: 50px;">
+			                <col>
+			                <col>
+			                <col>
+			            </colgroup>
+			            <thead>
+			                <tr>
+			                    <th>#</th>
+			                    <th>CPU</th>
+			                    <th>Memory</th>
+			                    <th>Disk</th>
+			                    <th>Uptime</th>
+			                </tr>
+			            </thead>
+			            <tbody id="instanceStatusArea">
+			            </tbody>
+			    </table>
+				</div>
+			</div>
+			<!--//Instance Status Panel-->
+		</article>
+
+		<article class="lay-item__right lay-width__short">
+			<!--Bound Services Panel-->
+			<div class="Panel">
+				<div class="Panel-header">Bound Services<span class="bs-number" id="bsNumber"></span>
+					<div class="btn-right">
+						<a href="javascript:;" class="icon-detail_pop" id="openServiceBindDialog">BIND A NEW SERVICE</a>
+						<!-- <button class="Button" id="openServiceBindDialog">BIND A NEW SERVICE</button> -->
+					</div>
+				</div>
+				<div class="Panel-content">
+					<ul class="List pass-listlink" id="bindingService">
+					</ul>
+				</div>
+			</div>
+			<!--//Bound Services Panel-->
+		</article>
+	</section>
+	<!--second-layout-->
+
+	<!--third-layout-->
+	<section class="lay-item__box">
+		<article class="lay-item__left lay-width__long dash-scd__height">
+			<!--Environment Variables Panel-->
+			<div class="Panel">
+				<div class="Panel-header">Environment Variables
+					<div class="btn-right">
+						<a href="javascript:;" class="icon-detail_pop" id="openEnvVariablesDialog">Detail View</a>
+					</div>
+				</div>
+				<div class="Panel-content dash-scd__height">
+					<div class="paas-variable">
+						<p class="dashboard-sub__title">System Provided</p>
+						<textarea readonly class="Textarea pass-textarea" id="systemProvidedTextarea">
+						</textarea>
+						<p class="dashboard-sub__title">User Provided</p>
+						<textarea readonly class="Textarea pass-textarea" id="userProvidedTextarea">
+						</textarea>
+					</div>
+				</div>
+			</div>
+			<!--//Environment Variables Panel-->
+		</article>
+
+		<article class="lay-item__right lay-width__short">
+			<!--Routes Panel-->
+			<div class="Panel">
+				<div class="Panel-header">Routes
+					<div class="btn-right">
+						<!-- <button class="Button" id="openMapNewRouteDialog">MAP A NEW ROUTE</button> -->
+						<a href="javascript:;" class="icon-detail_pop" id="openMapNewRouteDialog">MAP A NEW ROUTE</a>
+					</div>
+				</div>
+				<div class="Panel-content">
+					<ul class="List pass-listlink no-img" id="routesArea">
+					</ul>
+				</div>
+			</div>
+			<!--//panel-->
+		</article>
+	</section>
+	<!--//third-layout-->
+
+	<!--forth-layout-->
+	<section class="lay-item__box">
+		<!--panel-->
+		<article class="Panel">
+			<div class="Panel-header">Logs
+				<div class="btn-right">
+					<a href="javascript:;" class="link-to-ald" id="linkALD" style="font-size:11px;color:#888888">Go to Application Logging Dashboard</a>
+					<img src="@{images}/icon-starting.png" style="cursor: pointer;margin-left: 3px;" id="logRefresh">
+					<a href="javascript:;" class="icon-detail_pop link-to-logs" id="openLogsDialog">Detail View</a>
+				</div>
+			</div>
+			<div class="Panel-content dash-fst__height-100">
+				<div class="dash-content__wrap">
+					<textarea readonly class="Textarea pass-textarea-80" id="logTextArea"></textarea>
+				</div>
+			</div>
+		</article>
+		<!--//panel-->
+	</section>
+	<!--//forth-layout-->
+	<!-- //table end -->
+</div>
+
+<!--rename dialog-->
+<div id="rename-pop-apps" class="Dialog" data-dialog-type="blank" data-dialog-modal="true">
+    <div class="Dialog-contents">
+    	<div class="popup-wrap">
+			<div class="popup-contents">
+				<div class="rename-wrap">
+					<input class="Textinput rename-input" placeholder="new_name" id="newAppName">
+					<!-- btn wrap-->
+					<div class="btn-right">
+						<button class="Button paas-btn__typea" id="reNameAppBtn">SAVE</button>
+						<button class="Button paas-btn__typea Default" name="dialogCnclBtn">CANCEL</button>
+					</div>
+					<!-- //btn wrap-->
+				</div>
+				<div class="delete-wrap">
+					<div class="delete-title__wrap">
+						<h4 class="delete-title" >Delete App</h4>
+						<div class="delete-txt">
+							This will permanently delete all of the apps in this space.
+						</div>
+					</div>
+					<button class="Button paas-btn__typec" id="deleteAppBtn">DELETE APP</button>
+				</div>
+			</div>
+		</div>
+    </div>
+</div>
+<!--//rename dialog-->
+
+<!-- Buildpack -->
+<div id="buildpack" class="Dialog" data-dialog-type="blank" data-dialog-modal="true">
+	<div class="popup-contents">
+		<div class="appscnt-wrap">
+			<p class="appscnt-box" id="buildpack_txt">
+			</p>
+		</div>
+		<div class="appscnt-wrap">
+			<h4 class="appscnt-title">Start CMD</h4>
+			<p class="appscnt-box" id="buildpack_cmd">
+			</p>
+		</div>
+		<div class="appscnt-wrap">
+			<h4 class="appscnt-title">Stack</h4>
+			<p class="appscnt-box" id="buildpack_stack">
+			</p>
+		</div>
+	</div>
+</div>
+<!--// Buildpack --><!-- Service Bind dialog -->
+
+<!-- Event Dialog -->
+<div id="eventDialog" class="Dialog" data-dialog-type="blank" data-dialog-modal="true">
+	<div class="popfull-wrap">
+		<ul id="eventDialogLoadingBar">
+			<li style="text-align: center;">
+       			<div class="middleLoadingBar" id="fullLoadingBar">
+					<div>
+						<img alt="" src="@{images}/loading_full.gif" width="51px;" height="51px;">
+					</div>
+					<span>
+						Loading...
+					</span>
+				</div>
+			</li>
+		</ul>
+		<ul class="List route-list" id="eventDialogList" style="display: none; height : 350px;">
+		</ul>
+	</div>
+</div>
+<!--// Event dialog -->
+
+<!-- Instance Status Dialog -->
+<div id="instanceStatusDialog" class="Dialog" data-dialog-type="close" data-dialog-modal="true">
+	<div class="popfull-wrap">
+		<div class="refresh-right-align" style="padding: 10px 20px 0px 0px;">
+			<a href="javascript:;"  id="instanceStatusDialogRefresh"><img src="@{images}/icon-starting.png" style="cursor: pointer;">Refresh</a>
+		</div>
+		<table class="Table paas-tbl__bound" data-height="420px" data-scroll="all">
+	        <colgroup>
+	            <col style="width: 60px">
+	            <col>
+	            <col>
+	            <col>
+	            <col style="width: 250px">
+	        </colgroup>
+	        <thead>
+                <tr>
+                    <th>#</th>
+                    <th>CPU</th>
+                    <th>Memory</th>
+                    <th>Disk</th>
+                    <th>Uptime</th>
+                </tr>
+            </thead>
+	        <tbody id="instanceStatusDialogList">
+	        </tbody>
+        </table>
+	</div>
+</div>
+<!--// Instance Status dialog -->
+
+<!-- Service Bind dialog -->
+<div id="serviceBindDialog" class="Dialog" data-dialog-type="blank" data-dialog-modal="true">
+	<div class="popfull-wrap">
+		<table class="Table paas-tbl__bound" data-height="420px" data-scroll="all">
+	        <colgroup>
+	            <col style="width: 60px">
+	            <col style="width: 120px">
+	            <col style="width: 120px">
+	            <col style="width: 120px">
+	            <col style="width: 120px">
+	            <col>
+	        </colgroup>
+	        <tbody id="bindServiceDialogTbody">
+	        </tbody>
+		</table>
+	</div>
+
+	<div class="bound-bot__wrap">
+		<h4 class="popfull-bot__title">Bind a New Service</h4>
+		<div class="Divselect bound-select">
+			<select id="bindServiceDialog" title="Selected A New Bind Service"></select>
+			<span></span>
+		</div>
+		<button class="Button paas-btn__typea" id="dialogBindBtn">BIND</button>
+		<button class="Button paas-btn__typea Default" id="dialogCnclBtn" name="dialogCnclBtn" title="Cancle">CANCEL</button>
+		<!-- btn wrap-->
+		<div class="btn-right Margin-right-30">
+			<a href="/marketplace">
+				<button class="Button paas-btn__typec" id="goMarket" title="Go to marketplace">GO TO MARKETPLACE</button>
+			</a>
+		</div>
+		<!-- //btn wrap-->
+	</div>
+</div>
+<!--// Service Bind dialog -->
+
+<!-- Service Unbind dialog -->
+<div id="unbind-pop" class="Dialog" data-dialog-type="blank" data-dialog-modal="true">
+    <div class="Dialog-contents">
+    	<div class="popup-wrap">
+			<div class="unbind-wrap">
+				Are you sure you want to unbind eureka-service from bookmark-service?
+			</div>
+			<!-- btn wrap-->
+			<div class="btn-right pop-btn__gutter">
+				<button class="Button paas-btn__typea" id="unbindActBtn">UNBIND</button>
+				<button class="Button paas-btn__typea Default" id="dialogCnclBtn" name="dialogCnclBtn">CANCEL</button>
+			</div>
+			<!-- //btn wrap-->
+		</div>
+    </div>
+</div>
+<!--//unbind dialog -->
+
+<!-- Environment Variables dialog -->
+<div id="envVariablesDialog" class="Dialog" data-dialog-type="blank" data-dialog-modal="true">
+	<div class="popup-wrap">
+		<div class="provided-wrap">
+			<div class="provided-box" id="envVariableTextDialog" style="overflow-y: auto; height: 150px;"></div>
+			<h4 class="popfull-bot__title">User Provided</h4>
+			<div class="provided-box" style="text-align: left; overflow-y: auto; height: 150px;">
+				<table id="userProvidedTextDialog">
+				</table>
+			</div>
+	   	</div>
+
+	   	<form class="env-form">
+			<div class="provided-bot__wrap">
+				<input class="Textinput provided-input" width="50" placeholder="key" style="margin-right: 10px; width: 220px;" name="key">
+				<textarea class="Textarea provided-textarea" style="margin-right: 10px;" name="value"></textarea>
+				<div class="provided-btn__wrap">
+					<button class="Button paas-btn__typea" id="envVariablesDialogSaveBtn">SAVE</button>
+					<button class="Button paas-btn__typea Default" id="dialogCnclBtn" name="dialogCnclBtn">CANCEL</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<!--// Environment Variables dialog -->
+
+<!--Route Map dialog -->
+<div id="mapNewRouteDialog" class="Dialog" data-dialog-type="blank" data-dialog-modal="true">
+	<div class="popup-wrap">
+		<div class="popfull-wrap">
+			<ul class="List route-list" id="routesAreaDialog" style="height: 280px;; overflow-y: auto;">
+			</ul>
+		</div>
+
+		<div class="popfull-bot__wrap">
+			<h4 class="popfull-bot__title">Map a Routes</h4>
+			<input class="Textinput routes-width" placeholder="Enter a new host name" id="newHostName">
+			<div class="Divselect routes-select" >
+				<select id="domainOptionSelected" data-placeholder="Selected Domain"></select>
+				<span></span>
+			</div>
+			<!-- btn wrap-->
+			<div class="btn-right Margin-right-10">
+				<button class="Button paas-btn__typea" id="newMapRouteActBtn">MAP</button>
+				<button class="Button paas-btn__typea Default" id="dialogCnclBtn" name="dialogCnclBtn">CANCEL</button>
+			</div>
+			<!-- //btn wrap-->
+		</div>
+	</div>
+</div>
+<!--// Route Map dialog -->
+
+<!-- Logs dialog -->
+<div id="logsDialog" class="Dialog" data-dialog-type="blank" data-dialog-modal="true">
+	<div class="popup-wrap">
+		<div class="provided-wrap">
+			<div class="refresh-right-align">
+				<a href="javascript:;"  id="logDialogRefresh"><img src="@{images}/icon-starting.png">Refresh</a>
+			</div>
+			<textarea readonly class="Textarea pass-textarea-80" id="logsDialogDiv" style="height: 490px;"></textarea>
+	   	</div>
+   	</div>
+</div>

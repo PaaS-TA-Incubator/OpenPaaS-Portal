@@ -1,0 +1,6 @@
+/node_modules/
+/config.json
+/server.crt
+/server.key.txt
+/server.key
+/manifest.yml

@@ -1,0 +1,134 @@
+<script src="@{js}/marketplace.js"></script>
+
+<script type="text/template" id="marketItemTemplate">
+<li class="Link">
+	<!-- Market place item이 선택되어 오른쪽에 내용을 보여준 상태인 경우 class="selected"를 추가합니다. -->
+	<a>
+		<p class="market-thum"><img src="@{images}/{imageUrl}" class="Thumbnail"></p>
+		<dl class="market-item">
+			<dt>{name}</dt>
+			<dd>{description}</dd>
+		</dl>
+		<span class="btn-view">View Plans</span>
+	</a>
+</li>
+</script>
+
+<script type="text/template" id="plansInfoTemplate">
+<tr>
+	<td>
+		<label class="ImageRadio af-radio-text">
+			<input class="Radio" name="plansRadioBtn" value="{planName}" data-type="radio" data-classinit="true" type="radio" data-converted="true">
+		</label>
+	</td>
+	<td>
+		{planName}</br>
+		{costs} / {unit}
+	</td>
+	<td colspan='2' class="Text-left">
+		{bullets}
+	</td>
+</tr>
+</script>
+
+<div class="container-wrap">
+	<!-- sub title -->
+	<h3 class="sub-title">Marketplace</h3>
+	<!--// sub title-->
+	<!-- serch -->
+	<!-- <div class="market-search__wrap">
+		<input class="market-search" placeholder="Search">
+	</div> -->
+	<!-- //serch -->
+	<!-- market list section-->
+	<section class="Margin-top-10">
+		<div class="lay-item__box">
+			<div class="lay-item__left">
+				<div class="market-item__wrap">
+					<ul class="List market-list" id="marketServiceList">
+					</ul>
+				</div>
+			</div>
+			<div class="lay-item__right" id="plansDiv" style="display: none;">
+				<div class="Panel market-item__height">
+					<div class="Panel-header header-typeb">Plans</div>
+					<div class="Panel-content">
+						<table class="Table paas-tbl__typec" id="plansTable">
+					        <colgroup>
+					            <col style="width: 50px">
+					            <col style="width: 200px">
+					            <col>
+					            <col>
+					        </colgroup>
+					        <tbody>
+					        </tbody>
+						</table>
+						
+						<!-- selected plan wrap-->
+						<div class="market-form__wrap" id="selectedPlanDiv" >
+							<h4 class="plan-title">Selected Plan : <span class="plan-title__sub" id="selectedPlan_planName"></span></h4>
+							<form id="selectedPlanForm">
+								<table class="Table paas-tbl__form" id="selectedPlanTable">
+							        <colgroup>
+							            <col style="width: 110px">
+							            <col>
+							        </colgroup>
+							        <tbody>
+							        	<tr>
+							        		<th>Instance Name</th>
+							        		<td><input class="Textinput Width-100" id="selectedPlan_instanceName" name="name"></td>
+							        	</tr>
+							        	<tr>
+							        		<th>Org</th>
+							        		<td>
+							        			<div class="Divselect Width-100">
+							        				<select id="selectedPlan_orgSelect" data-placeholder="Selected Organizations">
+							        					<option>Selected Organizations</option>
+							        				</select>
+							        				<span></span>
+							        			</div>
+							        		</td>
+							        	</tr>
+							        	<tr>
+							        		<th>Space</th>
+							        		<td>
+							        			<div class="Divselect Width-100">
+							        				<select id="selectedPlan_spaceSelect" name="space_guid">
+							        				</select>
+							        				<span></span>
+							        			</div>
+							        		</td>
+							        	</tr>
+							        	<tr>
+							        		<th>App</th>
+							        		<td>
+							        			<div class="Divselect Width-100">
+							        				<select id="selectedPlan_appSelect" name="appGuid">
+							        				</select>
+							        				<span></span>
+							        			</div>
+							        		</td>
+							        	</tr>
+							        	<tr>
+							        		<th rowspan="2">Add Parameters<br>(optional)</th>
+							        		<td><input class="Textinput Width-100 Margin-top-20"></td>
+							        	</tr>
+							        	<tr>
+							        		<td><input class="Textinput Width-100"></td>
+							        	</tr>
+							        </tbody>
+							    </table>
+							    <div class="market-btn__wrap">
+							    	<button class="Button paas-btn__typea" id="addActBtn">ADD</button>
+							    	<button class="Button Default paas-btn__typea" id="marketCnclBtn">CANCEL</button>
+							    </div>
+							</form>
+						</div>
+						<!-- //selected plan wrap-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- //market list section-->
+</div>
