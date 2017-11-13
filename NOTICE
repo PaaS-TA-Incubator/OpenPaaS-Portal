@@ -1,0 +1,44 @@
+# OSS Notice | OpenPaaS Portal
+This Software uses Open Source Software(OSS). You can find the source code of these open source projects, along with applicable license information, below. We are deeply grateful to these developers for their work and contributions.
+
+Any questions about our use of licensed work can be sent to skchkim@sk.com.
+
+THE FOLLOWING SETS FORTH ATTRIBUTION NOTICES FOR THIRD PARTY SOFTWARE THAT MAY BE CONTAINED IN PORTIONS OF THIS PRODUCT.
+
+
+## 1. Alopex UI
+  - http://ui.alopex.io
+  - Copyright © 2010-2016 SK Holdings. All rights reserved.
+  - Commercial License
+
+## 2. excel-export
+  - https://www.npmjs.com/package/excel-export
+  - Author : Ber-Lin Lai berlin.lai@gmail.com
+  - The 3-Clause BSD License(https://opensource.org/licenses/BSD-3-Clause)
+
+## 3. Imboard
+  - https://www.npmjs.com/package/imboard
+  - https://github.com/tonite31/imboard
+  - Copyright (c) 2015-2015 Alprensia World, Inc
+  - MIT License(https://opensource.org/licenses/MIT)
+
+## 4. jquery
+  - https://github.com/jquery/jquery/
+  - Copyright JS Foundation and other contributors, https://js.foundation/
+  - MIT License(https://opensource.org/licenses/MIT)
+
+## 5. jquery.inputmask
+  - https://github.com/RobinHerbots/Inputmask
+  - Copyright (c) 2010 Robin Herbots
+  - MIT License(https://opensource.org/licenses/MIT)
+
+## 6. nodejs-pumpkin
+  - https://www.npmjs.com/package/nodejs-pumpkin
+  - https://github.com/tonite31/pumpkin
+  - Copyright (c) 2015-2016 Halloween Party, Inc
+  - MIT License(https://opensource.org/licenses/MIT)
+
+## 7 Pacta
+  - https://github.com/mudge/pacta/
+  - Copyright (c) 2013, Paul Mucur, http://mudge.name
+  - MIT License(https://opensource.org/licenses/MIT)

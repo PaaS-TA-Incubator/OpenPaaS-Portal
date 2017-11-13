@@ -7,12 +7,11 @@ OpenPaaS Portal은 PaaS-TA 사용자를 위한 웹 애플리케이션입니다. 
 - Member: Org/Space별 사용자 조회, 사용자 초대/제거, 사용자 권한 부여/제거
 
 ## 배포 방법
-
-### 사전 준비
-1. PaaS-TA 배포
+### PaaS-TA 배포
+1. 아래 가이드를 참고하여 PaaS-TA를 배포합니다.
    - https://github.com/PaaS-TA/Guide-2.0-Linguine-#플랫폼-설치-가이드
-2. OpenPaaS Portal을 위한 UAA Client 생성
-   - PaaS-TA Controller Manifest 파일에 아래 내용을 추가하여 배포합니다.
+2. 배포 시, Portal의 Login/Logout 기능을 UAA와 연동하기위해 아래와 같은 설정이 필요합니다.
+   - Portal을 위한 UAA Client 생성
       ```sh
       properties:
          ...
@@ -31,13 +30,40 @@ OpenPaaS Portal은 PaaS-TA 사용자를 위한 웹 애플리케이션입니다. 
                   secret: {PORTAL-CLIENT-SECRET}
                   app-launch-url: https://console.{APP-DOMAIN}
                   show-on-homepage: true
+                  app-icon: {BASE64-ENCODED-APP-ICON-IMAGE}
       ```
+   - Login 페이지 브랜딩 설정
+      ```sh
+      properties:
+         ...
+         login:
+            ...
+            branding:
+               company_name: {COMPANY-NAME}
+               footer_legal_text: {COPYRIGHT}
+               footer_links:
+                  Terms: {TERMS-LINK}
+                  PrivacyAgreement: {PRIVACY-AGREEMENT-LINK}
+                  Licensing: {LICENSE-LINK}
+      ```
+   - SMTP 설정 (회원가입 및 사용자 초대 기능을 위한 설정)
+     ```sh
+     properties:
+        ...
+        login:
+           ...
+           smtp:
+              host: {SMTP-SERVER}
+              port: {SMTP-PORT}
+              user: {SMTP-USERNAME}
+              password: {SMTP-PASSWORD}
+     ```
 
 ### OpenPaaS Portal 배포
 1. 소스 코드 내려 받기
    ```sh
-   $ git clone https://github.com/PaaS-TA-Incubator/OpenPaaS-Portal.git
-   $ cd openpaas-portal
+   $ git clone
+   $ cd openpaas
    ```
 
 2. manifest.yml 작성
