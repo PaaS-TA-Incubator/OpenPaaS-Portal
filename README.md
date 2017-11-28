@@ -112,9 +112,10 @@ OpenPaaS Portal은 PaaS-TA 사용자를 위한 웹 애플리케이션입니다. 
 
 ## Trouble Shooting
 ### 400 Bad Request
-Error code : 400 Bad Request
-Error Message : Invalid redirect [URL] did not match one of the registered values 에레 메세지 발생 시
-Applicaiton manifest.yml에 PORTAL_CLIENT property 값 확인.
-"portal_client_id:secret"을 조합해 base64 encode 한 값을 넣어야 함.
+- Error code : 400 Bad Request
+- Error Message : Invalid redirect [URL] did not match one of the registered values 에레 메세지 발생 시
+- Solution : 
+  - Applicaiton manifest.yml에 PORTAL_CLIENT property 값 확인.
+  - "portal_client_id:secret"을 조합해 base64 encode 한 값을 넣어야 함.
 
 
