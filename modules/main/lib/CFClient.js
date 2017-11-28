@@ -1,5 +1,6 @@
 var request = require('request');
 var WebSocket = require('ws');
+const encode = require('nodejs-base64-encode');
 
 var CFClient = function(data) {
 	if (!data)
@@ -283,9 +284,11 @@ CFClient.prototype.getAuthInfo = function(req, authCode, done, error) {
 	var param = {};
 	var uaaToken = '';
 	var authInfo = {};
+	var portalClient = encode.encode(_config.portalClientId + ':' + _config.portalClientSecret, 'base64');
+	//console.log('portalClient : ', portalClient);
 	param.url = _config.endpoint.authorization +'/oauth/token';
 	param.headers = {
-		'Authorization' : 'Basic ' + _config.portalClient,
+		'Authorization' : 'Basic ' + portalClient,
 		'Accept' : 'application/json',
 		'Content-type' : 'application/x-www-form-urlencoded'
 	};

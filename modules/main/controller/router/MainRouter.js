@@ -483,7 +483,7 @@ module.exports = function(app) {
 					cf.getOrg(goto);
 					return;
 				} else {
-					res.redirect(_config.endpoint.authorization+'/oauth/authorize?response_type=code&client_id=portal_client&redirect_uri=http%3A%2F%2F' + req.headers.host + '%2Flogin');
+					res.redirect(_config.endpoint.authorization+'/oauth/authorize?response_type=code&client_id=' + _config.portalClientId + '&redirect_uri=http%3A%2F%2F' + req.headers.host + '%2Flogin');
 					return;
 				}
 			}

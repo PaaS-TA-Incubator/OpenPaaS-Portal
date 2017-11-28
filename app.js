@@ -38,8 +38,10 @@ if(process.env.USE_HTTPS)
 	_config.usehttps = process.env.USE_HTTPS;
 if(process.env.SYSTEM_DOMAIN)
 	_config.systemDomain = process.env.SYSTEM_DOMAIN;
-if(process.env.PORTAL_CLIENT)
-	_config.portalClient = process.env.PORTAL_CLIENT;
+if(process.env.PORTAL_CLIENT_ID)
+	_config.portalClientId = process.env.PORTAL_CLIENT_ID;
+if(process.env.PORTAL_CLIENT_SECRET)
+	_config.portalClientSecret = process.env.PORTAL_CLIENT_SECRET;
 /* Brand */
 if(process.env.BRAND)
 	_config.brand = process.env.BRAND;
