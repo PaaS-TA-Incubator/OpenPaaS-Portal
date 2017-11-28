@@ -78,7 +78,8 @@ OpenPaaS Portal은 PaaS-TA 사용자를 위한 웹 애플리케이션입니다. 
        CF_STAGING_TIMEOUT: 25                          //필수
        CF_STARTUP_TIMEOUT: 15                          //필수
        SYSTEM_DOMAIN: {SYSTEM-DOMAIN}                  //필수
-       PORTAL_CLIENT: {BASE64-ENCODED-CLIENTID:SECRET} //필수
+       PORTAL_CLIENT_ID: {PORTAL_CLIENT_ID}            //필수
+       PORTAL_CLIENT_SECRET: {PORTAL_CLIENT_SECRET}    //필수
        ## Brand
        BRAND: {BRAND-NAME}
        COPYRIGHT: {COPYRIGHT}
@@ -109,13 +110,5 @@ OpenPaaS Portal은 PaaS-TA 사용자를 위한 웹 애플리케이션입니다. 
 ## 사용 방법
 아래 가이드 참조
 - https://sk-paas.atlassian.net/wiki/spaces/DOCS/pages/327926/Portal
-
-## Trouble Shooting
-### 400 Bad Request
-- Error code : 400 Bad Request
-- Error Message : Invalid redirect [URL] did not match one of the registered values 에레 메세지 발생 시
-- Solution : 
-  - Applicaiton manifest.yml에 PORTAL_CLIENT property 값 확인.
-  - "portal_client_id:secret"을 조합해 base64 encode 한 값을 넣어야 함.
 
 
